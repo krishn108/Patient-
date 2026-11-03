@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Patient and Blood Bank Management System</title>
+</head>
+<body>
+
+<h1>Patient and Blood Bank Management System</h1>
+
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for message in messages %}
+            <p><strong>{{ message }}</strong></p>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+<hr>
+
+<h2>1. Patient Registration</h2>
+
+<form action="/add_patient" method="POST">
+    Patient Name:
+    <input type="text" name="name" required>
+    <br><br>
+
+    Age:
+    <input type="number" name="age" min="1" max="120" required>
+    <br><br>
+
+    Blood Group:
+    <select name="blood" required>
+        <option value="A+">A+</option>
+        <option value="A-">A-</option>
+        <option value="B+">B+</option>
+        <option value="B-">B-</option>
+        <option value="AB+">AB+</option>
+        <option value="AB-">AB-</option>
+        <option value="O+">O+</option>
+        <option value="O-">O-</option>
+    </select>
+    <br><br>
+
+    Emergency Severity:
+    <select name="severity" required>
+        <option value="1">Level 1</option>
+        <option value="2">Level 2</option>
+        <option value="3">Level 3</option>
+        <option value="4">Level 4</option>
+        <option value="5">Level 5</option>
+    </select>
+    <br><br>
+
+    <button type="submit">Register Patient</button>
+</form>
+
+<h3>Patient Records</h3>
+<pre>{{ patients }}</pre>
+
+<hr>
+
+<h2>2. Donor Registration</h2>
+
+<form action="/add_donor" method="POST">
+    Donor Name:
+    <input type="text" name="donor_name" required>
+    <br><br>
+
+    Donor Age:
+    <input type="number" name="donor_age" min="18" max="100" required>
+    <br><br>
+
+    Blood Group:
+    <select name="donor_blood" required>
+        <option value="A+">A+</option>
+        <option value="A-">A-</option>
+        <option value="B+">B+</option>
+        <option value="B-">B-</option>
+        <option value="AB+">AB+</option>
+        <option value="AB-">AB-</option>
+        <option value="O+">O+</option>
+        <option value="O-">O-</option>
+    </select>
+    <br><br>
+
+    <button type="submit">Register Donor</button>
+</form>
+
+<h3>Donor Records</h3>
+<pre>{{ donors }}</pre>
+
+<hr>
+
+<h2>3. Blood Stock Management</h2>
+
+<form action="/add_stock" method="POST">
+    Blood Group:
+    <select name="stock_blood" required>
+        <option value="A+">A+</option>
+        <option value="A-">A-</option>
+        <option value="B+">B+</option>
+        <option value="B-">B-</option>
+        <option value="AB+">AB+</option>
+        <option value="AB-">AB-</option>
+        <option value="O+">O+</option>
+        <option value="O-">O-</option>
+    </select>
+    <br><br>
+
+    Units to Add:
+    <input type="number" name="units" min="1" required>
+    <br><br>
+
+    <button type="submit">Add Blood Stock</button>
+</form>
+
+<h3>Available Blood Stock</h3>
+<pre>{{ stock }}</pre>
+
+<hr>
+
+<h2>4. Submit Blood Request</h2>
+
+<form action="/add_request" method="POST">
+    Patient Name:
+    <input type="text" name="request_patient" required>
+    <br><br>
+
+    Blood Group:
+    <select name="request_blood" required>
+        <option value="A+">A+</option>
+        <option value="A-">A-</option>
+        <option value="B+">B+</option>
+        <option value="B-">B-</option>
+        <option value="AB+">AB+</option>
+        <option value="AB-">AB-</option>
+        <option value="O+">O+</option>
+        <option value="O-">O-</option>
+    </select>
+    <br><br>
+
+    Required Units:
+    <input type="number" name="request_units" min="1" required>
+    <br><br>
+
+    <button type="submit">Submit Request</button>
+</form>
+
+<h3>Pending Requests</h3>
+<pre>{{ requests_data }}</pre>
+
+<form action="/process_request" method="POST">
+    <button type="submit">Process Next Request</button>
+</form>
+
+<hr>
+
+<h2>5. Direct Blood Issue</h2>
+
+<form action="/issue_blood" method="POST">
+    Patient Name:
+    <input type="text" name="issue_patient" required>
+    <br><br>
+
+    Blood Group:
+    <select name="issue_blood_group" required>
+        <option value="A+">A+</option>
+        <option value="A-">A-</option>
+        <option value="B+">B+</option>
+        <option value="B-">B-</option>
+        <option value="AB+">AB+</option>
+        <option value="AB-">AB-</option>
+        <option value="O+">O+</option>
+        <option value="O-">O-</option>
+    </select>
+    <br><br>
+
+    Units to Issue:
+    <input type="number" name="issue_units" min="1" required>
+    <br><br>
+
+    <button type="submit">Issue Blood and Deduct Stock</button>
+</form>
+
+<hr>
+
+<h2>6. Blood Issue History</h2>
+<pre>{{ issues }}</pre>
+
+</body>
+</html>
