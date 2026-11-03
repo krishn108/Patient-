@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: patient-blood-bank-management-system
+    runtime: python
+    buildCommand: pip install -r requirements.txt && gcc -shared -fPIC -O2 -o libpatient.so patient.c
+    startCommand: gunicorn app:app
